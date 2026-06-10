@@ -56,10 +56,15 @@ Autofoundry/
 ├── data/
 │   └── foundry_mock.json      # Local synthetic regulatory policy mock data layer
 └── services/
-    ├── evaluator.py           # Multi-step reasoning pipeline orchestrator
-    ├── foundry.py             # Microsoft Foundry IQ client wrapper 
-    ├── model_engine.py        # Structural runtime constraint generator
-    └── planner.py             # Paragraph-level checkpoint processor
+|   ├── evaluator.py           # Multi-step reasoning pipeline orchestrator
+|   ├── foundry.py             # Microsoft Foundry IQ client wrapper 
+|   ├── model_engine.py        # Structural runtime constraint generator
+|   └── planner.py             # Paragraph-level checkpoint processor
+└── test/                      # 🧪 Automated Unit Testing Suite (Pytest)
+    ├── conftest.py            # Global test configurations and shared mock fixtures
+    ├── test_evaluator.py      # Core agentic state-machine reasoning tests
+    ├── test_model_engine.py   # Outbound schema integrity validation tests
+    └── test_openapi.py        # Automated OpenAPI documentation checks
 🛠️ Installation & Environment Setup
 1. Prerequisites
 Ensure you are running Python 3.11+ within your environment. On Linux systems (including ChromeOS Crostini environments), verify that the core virtual environment package is present:
