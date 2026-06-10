@@ -1,0 +1,114 @@
+{
+  "rules": [
+    {
+      "id": "SOC2-1",
+      "title": "Access Control: Principle of Least Privilege",
+      "text": "Systems must enforce least privilege for all user accounts and service principals. Access reviews must occur quarterly.",
+      "section": "AC-1",
+      "citations": [
+        {"source": "SOC2-Core", "id": "AC-1", "location": "SOC2 v2024, Section 3.2"}
+      ]
+    },
+    {
+      "id": "SOC2-2",
+      "title": "Data Encryption at Rest and in Transit",
+      "text": "All sensitive data must be encrypted using AES-256 at rest and TLS 1.3 in transit. Encryption keys must be rotated every 90 days.",
+      "section": "DE-1",
+      "citations": [
+        {"source": "SOC2-Core", "id": "DE-1", "location": "SOC2 v2024, Section 5.1"}
+      ]
+    },
+    {
+      "id": "SOC2-3",
+      "title": "Audit Logging and Monitoring",
+      "text": "All access to sensitive systems must be logged with timestamp, user identity, action performed, and result. Logs must be retained for a minimum of 12 months.",
+      "section": "AL-1",
+      "citations": [
+        {"source": "SOC2-Core", "id": "AL-1", "location": "SOC2 v2024, Section 7.3"}
+      ]
+    },
+    {
+      "id": "GDPR-1",
+      "title": "Data Subject Rights: Right to Erasure",
+      "text": "Data controllers must be able to erase personal data on valid request unless legal grounds retain it.",
+      "section": "DSR-erase",
+      "citations": [
+        {"source": "GDPR", "id": "17", "location": "Article 17"}
+      ]
+    },
+    {
+      "id": "GDPR-2",
+      "title": "Data Processing Consent Requirements",
+      "text": "Processing of personal data requires explicit, informed consent from the data subject. Consent must be freely given, specific, and unambiguous.",
+      "section": "DP-consent",
+      "citations": [
+        {"source": "GDPR", "id": "6", "location": "Article 6"},
+        {"source": "GDPR", "id": "7", "location": "Article 7"}
+      ]
+    },
+    {
+      "id": "GDPR-3",
+      "title": "Cross-Border Data Transfer Safeguards",
+      "text": "Transfers of personal data to third countries require adequate safeguards such as Standard Contractual Clauses or Binding Corporate Rules.",
+      "section": "DP-transfer",
+      "citations": [
+        {"source": "GDPR", "id": "44", "location": "Article 44"},
+        {"source": "GDPR", "id": "46", "location": "Article 46"}
+      ]
+    },
+    {
+      "id": "NIST-1",
+      "title": "Multi-Factor Authentication Requirement",
+      "text": "All privileged accounts must use phishing-resistant multi-factor authentication. Password-only authentication is insufficient for administrative access.",
+      "section": "IA-2",
+      "citations": [
+        {"source": "NIST-SP800-53", "id": "IA-2", "location": "NIST SP 800-53 Rev 5, IA-2"}
+      ]
+    },
+    {
+      "id": "NIST-2",
+      "title": "Supply Chain Risk Management",
+      "text": "Organizations must assess and monitor supply chain risks for all critical third-party vendors and service providers annually.",
+      "section": "SR-1",
+      "citations": [
+        {"source": "NIST-SP800-53", "id": "SR-1", "location": "NIST SP 800-53 Rev 5, SR-1"}
+      ]
+    },
+    {
+      "id": "ISO27001-1",
+      "title": "Information Security Risk Assessment",
+      "text": "The organization shall establish and maintain an information security risk assessment process that identifies, analyzes, and evaluates risks at planned intervals.",
+      "section": "6.1.2",
+      "citations": [
+        {"source": "ISO27001", "id": "6.1.2", "location": "ISO/IEC 27001:2022, Clause 6.1.2"}
+      ]
+    },
+    {
+      "id": "ISO27001-2",
+      "title": "Incident Response and Reporting",
+      "text": "A documented incident response procedure must be in place. All security incidents must be reported, triaged, and resolved within defined SLA timeframes.",
+      "section": "A.16",
+      "citations": [
+        {"source": "ISO27001", "id": "A.16", "location": "ISO/IEC 27001:2022, Annex A.16"}
+      ]
+    },
+    {
+      "id": "INTERNAL-DP-1",
+      "title": "Internal: Data Classification and Handling",
+      "text": "All company data must be classified as Public, Internal, Confidential, or Restricted. Restricted data requires explicit data owner approval for access.",
+      "section": "DP-CLASS-1",
+      "citations": [
+        {"source": "Internal-Data-Policy", "id": "DP-CLASS-1", "location": "Corporate Data Policy v3.1, Section 2.1"}
+      ]
+    },
+    {
+      "id": "INTERNAL-DP-2",
+      "title": "Internal: Employee Data Access Governance",
+      "text": "Employee access to sensitive internal systems must be reviewed every 6 months. Dormant accounts must be disabled after 30 days of inactivity.",
+      "section": "DP-GOV-2",
+      "citations": [
+        {"source": "Internal-Data-Policy", "id": "DP-GOV-2", "location": "Corporate Data Policy v3.1, Section 4.3"}
+      ]
+    }
+  ]
+}

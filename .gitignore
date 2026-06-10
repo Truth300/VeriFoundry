@@ -1,0 +1,21 @@
+# Local virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# Secrets and configurations
+.env
+*.local
+
+# Python cache & compiled binaries
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+htmlcov/
+
+# System or editor files
+.DS_Store
+.vscode/
