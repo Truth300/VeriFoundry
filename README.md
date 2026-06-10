@@ -60,7 +60,7 @@ Autofoundry/
 |   ├── foundry.py             # Microsoft Foundry IQ client wrapper 
 |   ├── model_engine.py        # Structural runtime constraint generator
 |   └── planner.py             # Paragraph-level checkpoint processor
-└── test/                      # 🧪 Automated Unit Testing Suite (Pytest)
+└── tests/                      # 🧪 Automated Unit Testing Suite (Pytest)
     ├── conftest.py            # Global test configurations and shared mock fixtures
     ├── test_evaluator.py      # Core agentic state-machine reasoning tests
     ├── test_model_engine.py   # Outbound schema integrity validation tests
