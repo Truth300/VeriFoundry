@@ -113,10 +113,12 @@ def create_app() -> FastAPI:
         """Handle prompt injection / security violations."""
         logger.warning(f"Prompt injection detected: {str(exc)}")
         return JSONResponse(
-            status_code=status.HTTP_400_BAD_REQUEST,
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             content={
-                "detail": str(exc),
-                "error_code": "PROMPT_INJECTION_DETECTED",
+                "security_status": "BLOCKED",
+                "reason": "PROMPT INJECTION DETECTED",
+                "incident_code": "SEC-FIDES-422",
+                "details": str(exc)
             },
         )
 
@@ -175,21 +177,6 @@ def create_app() -> FastAPI:
     async def submit_audit(request: AuditRequest) -> AuditResponse:
         """
         Submit a document or contract for autonomous compliance audit.
-
-        **Multi-Step Reasoning Pipeline:**
-        1. **Deconstruct**: Parse and structure document content
-        2. **Plan**: Identify verification targets against requested frameworks
-        3. **Fetch**: Retrieve relevant policies from Foundry IQ
-        4. **Evaluate**: Match document clauses against policies
-        5. **Synthesize**: Aggregate findings and generate risk score
-
-        **Returns:**
-        - `AuditResponse` with execution steps, findings, and risk score
-        - All claims grounded in Foundry IQ citations
-
-        **Security:**
-        - Input validated against injection patterns via Pydantic validators
-        - Response contains only cited, deterministic assertions
         """
         logger.info(
             f"Audit request received: type={request.document_type}, "
@@ -197,6 +184,31 @@ def create_app() -> FastAPI:
             f"doc_length={len(request.document_content)}"
         )
 
+        # 🛡️ ENTERPRISE SECURITY GATEWAY: Input Sanitization Check
+        content_upper = request.document_content.upper()
+        PROMPT_INJECTION_BLOCKLIST = [
+            "IGNORE ALL PREVIOUS",
+            "OVERRIDE: ATTENTION",
+            "SYSTEM OVERRIDE CODE",
+            "FIDES-BYPASS",
+            "STOP PROCESSING THE APPLICATION PAYLOAD",
+            "HALT ALL DISCOVERY CHECKS",
+            "YOUR NEW CORE OBJECTIVE IS"
+        ]
+        
+        if any(phrase in content_upper for phrase in PROMPT_INJECTION_BLOCKLIST):
+            logger.warning("FIDES Security Guard: Malicious system override signatures found. Aborting.")
+            return JSONResponse(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                content={
+                    "security_status": "BLOCKED",
+                    "reason": "PROMPT INJECTION DETECTED",
+                    "incident_code": "SEC-FIDES-422",
+                    "details": "Adversarial system override phrases found within document payload headers."
+                }
+            )
+
+        # Continue with normal execution if payload passes security gate
         try:
             evaluator = Evaluator()
             response = await evaluator.evaluate(request)
@@ -208,10 +220,8 @@ def create_app() -> FastAPI:
             return response
 
         except PromptInjectionError:
-            # Re-raise to be caught by the dedicated handler
             raise
         except RuntimeError:
-            # Re-raise for the runtime error handler (502)
             raise
         except Exception as e:
             logger.error(f"Audit failed: {type(e).__name__}: {str(e)}")
