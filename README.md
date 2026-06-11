@@ -1,6 +1,6 @@
 # 🛡️ VeriFoundry: Autonomous Enterprise Compliance Auditor
 
-### **Agents League Hackathon 2026 — Reasoning Track Submission**
+### **Agents — Reasoning Track**
 VeriFoundry is a production-grade, autonomous compliance orchestration engine built to evaluate corporate contracts, technical design specifications, and vendor agreements against complex regulatory frameworks (SOC2, GDPR, NIST). By integrating directly with the **Microsoft Foundry IQ** intelligence layer, VeriFoundry delivers zero-hallucination, risk-scored compliance audits backed by deterministic security guardrails and fully grounded policy citations.
 
 ---
