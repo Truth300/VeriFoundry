@@ -1,29 +1,50 @@
-"""Model execution options and response format schema for VeriFoundry.
+import os
+from openai import OpenAI
+from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
-Provides a JSON Schema derived from the `AuditResponse` Pydantic model
-that can be used as a strict `response_format` for model execution engines.
-"""
-from __future__ import annotations
-
-from typing import Any, Dict
-from models import AuditResponse
-
-
-def get_audit_response_json_schema() -> Dict[str, Any]:
-    """Return a JSON Schema (draft-style) for the `AuditResponse` model.
-
-    Uses Pydantic v2 `model_json_schema` to produce a schema suitable for
-    binding as an explicit `response_format` in downstream model engines.
-    """
-    # Use a components-style ref template so the schema integrates cleanly
-    # with OpenAPI structures if embedded.
-    return AuditResponse.model_json_schema(ref_template="#/components/schemas/{model}")
-
-
-# Model execution options that consumers (or tests) can import.
+# Global execution configurations required by main.py
 MODEL_EXECUTION_OPTIONS = {
-    "response_format": {
-        "type": "json_schema",
-        "json_schema": get_audit_response_json_schema(),
+    "default": {
+        "temperature": 0.0,
+        "max_tokens": 4096,
+        "top_p": 1.0
+    },
+    "gpt-4.1-mini": {
+        "temperature": 0.0,
+        "max_tokens": 4096,
+        "top_p": 1.0
     }
 }
+
+class ModelEngine:
+    def __init__(self):
+        # 1. Grab configurations from environment variables
+        self.endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "https://verifoundry1-resource.services.ai.azure.com/openai/v1")
+        self.deployment_name = os.getenv("AZURE_DEPLOYMENT_NAME", "gpt-4.1-mini")
+        
+        # 2. Build the secure Azure bearer token provider
+        token_provider = get_bearer_token_provider(
+            DefaultAzureCredential(), 
+            "https://ai.azure.com/.default"
+        )
+        
+        # 3. Initialize the OpenAI client pointing to the Azure infrastructure
+        self.client = OpenAI(
+            base_url=self.endpoint,
+            api_key=token_provider
+        )
+
+    async def call_llm(self, system_prompt: str, user_prompt: str) -> str:
+        """Executes a chat completion against your deployed gpt-4.1-mini model."""
+        try:
+            completion = self.client.chat.completions.create(
+                model=self.deployment_name,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ],
+                temperature=MODEL_EXECUTION_OPTIONS["gpt-4.1-mini"]["temperature"]
+            )
+            return completion.choices[0].message.content
+        except Exception as e:
+            raise RuntimeError(f"Azure OpenAI Inference Error: {e}")
