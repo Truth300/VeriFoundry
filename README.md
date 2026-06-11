@@ -5,9 +5,7 @@ VeriFoundry is a production-grade, autonomous compliance orchestration engine bu
 
 ---
 ## Project Demo Video
-[![Watch the Demo](https://shields.io)](https://youtu.be/_tjF3g4IHGE?si=pJok1qHBCPiTHpzM)
-
-Alternatively, view our project video directly here: [Reasoning Agent Demo Video](https://youtu.be/_tjF3g4IHGE?si=pJok1qHBCPiTHpzM)
+View our project video directly here: [Reasoning Agent Demo Video](https://youtu.be/_tjF3g4IHGE?si=pJok1qHBCPiTHpzM)
 
 ## 🏗️ System Architecture & Data Flow
 
