@@ -4,6 +4,10 @@
 VeriFoundry is a production-grade, autonomous compliance orchestration engine built to evaluate corporate contracts, technical design specifications, and vendor agreements against complex regulatory frameworks (SOC2, GDPR, NIST). By integrating directly with the **Microsoft Foundry IQ** intelligence layer, VeriFoundry delivers zero-hallucination, risk-scored compliance audits backed by deterministic security guardrails and fully grounded policy citations.
 
 ---
+## Project Demo Video
+[![Watch the Demo](https://shields.io)](https://youtu.be/_tjF3g4IHGE?si=pJok1qHBCPiTHpzM)
+
+Alternatively, view our project video directly here: [Reasoning Agent Demo Video](https://youtu.be/_tjF3g4IHGE?si=pJok1qHBCPiTHpzM)
 
 ## 🏗️ System Architecture & Data Flow
 
